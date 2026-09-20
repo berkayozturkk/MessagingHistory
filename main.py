@@ -1,15 +1,20 @@
-# This is a sample Python script.
+from dotenv import load_dotenv
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_google_genai.chat_models import HumanMessage,AIMessage
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+load_dotenv()
 
+model = ChatGoogleGenerativeAI(
+    model="gemini-3.6-flash",
+    temperature=0.7
+)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+if __name__ == "__main__":
+    messages = [
+        HumanMessage(content="Hello, my name is Berkay"),
+        AIMessage(content="Hello Berkay, how can i help you today?"),
+        HumanMessage(content="What is my name?"),
+    ]
+    response = model.invoke(messages)
+    print(response.content)
 
